@@ -1,0 +1,43 @@
+<!-- newPage.wxml -->
+<view class="container">
+  <form bindsubmit="formSubmit">
+    
+    <!-- 事件名称 -->
+    <view class="form-item">
+      <label>事件名称：</label>
+      <input name="eventName" placeholder="请输入事件名称" />
+    </view>
+    
+    <!-- 事件日期 -->
+    <view class="form-item">
+      <label>日期：</label>
+      <picker mode="date" bindchange="bindDateChange">
+        <view class="picker">
+          {{date ? date : '请选择日期'}}
+        </view>
+      </picker>
+    </view>
+    
+    <!-- 事件时间 -->
+    <view class="form-item">
+      <label>时间：</label>
+      <picker mode="time" bindchange="bindTimeChange">
+        <view class="picker">
+          {{time ? time : '请选择时间'}}
+        </view>
+      </picker>
+    </view>
+
+    <!-- 事件地点 -->
+    <view class="form-item">
+      <label>地点：</label>
+      <input name="location" placeholder="请输入地点" />
+    </view>
+
+    <!-- 提交按钮 -->
+    <view class="form-item">
+      <button formType="submit">提交</button>
+    </view>
+
+  </form>
+</view>

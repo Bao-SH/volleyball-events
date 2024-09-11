@@ -1,7 +1,8 @@
 {
   "pages": [
     "pages/index/index",
-    "pages/event/event"
+    "pages/event/event",
+    "pages/newEvent/newEvent"
   ],
   "window": {
     "backgroundTextStyle": "light",

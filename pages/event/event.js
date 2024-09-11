@@ -5,7 +5,12 @@ Page({
    * Page initial data
    */
   data: {
-
+    eventsList: []
+  },
+  createEvent: function(e) {
+    wx.navigateTo({
+      url: '/pages/newEvent/newEvent', // 指定要跳转的页面路径
+    });
   },
 
   /**

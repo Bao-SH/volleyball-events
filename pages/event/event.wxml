@@ -1,2 +1,3 @@
 <!--pages/event/event.wxml-->
-<text>pages/event/event.wxml</text>
+<text>Events</text>
+<button bindtap="createEvent">Create A New Event</button>
