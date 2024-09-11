@@ -1,0 +1,11 @@
+<text>Hello World</text>
+<button bindtap="switchTab"> switch to another</button>
+<view bind:longpress="tapName">{{msg}}</view>
+<button hover-class="hover">点击按钮测试</button>
+<view hover-class="hover">点击view</view>
+<button loading="{{loading}}" bind:tap="tap">操作</button>
+<template name="msgItem">
+  <view><text> {{index}} : {{msg}} </text>
+  <text> Time: {{time}} </text>
+  </view>
+</template>

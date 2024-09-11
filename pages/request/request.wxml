@@ -1,0 +1,4 @@
+<!--pages/request/request.wxml-->
+<text>pages/request/request.wxml</text>
+<button bind:tap="writeStorage">writing sotrage {{responseCode}}</button>
+<button bind:tap="scanCode">scan Code</button>
