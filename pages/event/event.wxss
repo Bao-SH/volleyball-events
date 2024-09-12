@@ -1,24 +1,19 @@
-/* pages/event/event.wxss */
+/* newPage.wxss */
 .container {
-  padding: 20rpx;
+  padding: 20px;
 }
 
-.event-item {
-  padding: 20rpx;
+.form-item {
+  margin-bottom: 20px;
+}
+
+label {
+  font-weight: bold;
+  margin-right: 10px;
+}
+
+.picker {
   border: 1px solid #ddd;
-  border-radius: 10rpx;
-  margin-bottom: 20rpx;
-  display: flex;
-  justify-content: space-between;
-  align-items: center; /* 确保内容和删除按钮垂直居中对齐 */
-}
-.delete-btn {
-  background-color: transparent;
-  border: none;
-  padding: 0;
-}
-
-.delete-icon {
-  width: 40rpx;
-  height: 40rpx;
+  padding: 10px;
+  border-radius: 5px;
 }

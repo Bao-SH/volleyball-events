@@ -2,7 +2,7 @@
   "pages": [
     "pages/index/index",
     "pages/event/event",
-    "pages/newEvent/newEvent"
+    "pages/eventList/eventList"
   ],
   "window": {
     "backgroundTextStyle": "light",
@@ -14,7 +14,7 @@
   },
   "tabBar": {
     "list": [
-      { "text": "Events", "pagePath": "pages/event/event" },
+      { "text": "Events", "pagePath": "pages/eventList/eventList" },
       { "text": "My", "pagePath": "pages/index/index" }
     ]
   }

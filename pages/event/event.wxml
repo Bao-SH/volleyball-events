@@ -1,23 +1,43 @@
-<!--pages/event/event.wxml-->
+<!-- newPage.wxml -->
 <view class="container">
-  <block wx:for="{{events}}" wx:key="index">
-    <view class="event-item">
-      <text>事件名称: {{item.eventName}}</text>
-      <text>日期: {{item.date}}</text>
-      <text>时间: {{item.time}}</text>
-      <text>地点: {{item.location}}</text>
-      <text>成员: {{item.members.join(', ')}}</text>
-      <button bind:tap="deleteEvent" data-index="{{index}}" class="delete-btn">
-        <image src="/assets/icon/delete-icon.png" class="delete-icon"></image>
-      </button>
+  <form bindsubmit="formSubmit">
+    
+    <!-- 事件名称 -->
+    <view class="form-item">
+      <label>事件名称：</label>
+      <input name="eventName" placeholder="请输入事件名称" />
     </view>
-    <view style="height: 20rpx;"></view> <!-- 用于分隔每个事件 -->
-  </block>
-  
-  <!-- 当没有事件时显示提示信息 -->
-  <view wx:if="{{events.length === 0}}">
-    <text>当前没有事件</text>
-  </view>
-</view>
+    
+    <!-- 事件日期 -->
+    <view class="form-item">
+      <label>日期：</label>
+      <picker mode="date" bindchange="bindDateChange">
+        <view class="picker">
+          {{date ? date : '请选择日期'}}
+        </view>
+      </picker>
+    </view>
+    
+    <!-- 事件时间 -->
+    <view class="form-item">
+      <label>时间：</label>
+      <picker mode="time" bindchange="bindTimeChange">
+        <view class="picker">
+          {{time ? time : '请选择时间'}}
+        </view>
+      </picker>
+    </view>
 
-<button bindtap="createEvent">Create A New Event</button>
+    <!-- 事件地点 -->
+    <view class="form-item">
+      <label>地点：</label>
+      <input name="location" placeholder="请输入地点" />
+    </view>
+
+    <!-- 提交按钮 -->
+    <view class="form-item">
+      <button formType="submit">提交</button>
+    </view>
+
+  </form>
+</view>

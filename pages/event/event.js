@@ -1,50 +1,65 @@
-// pages/event/event.js
+// pages/newEvent/newEvent.js
 Page({
 
   /**
    * Page initial data
    */
   data: {
-    events: [] 
+    date: '',
+    time: '',
+    members: '',
   },
-  createEvent: function(e) {
-    wx.navigateTo({
-      url: '/pages/newEvent/newEvent', // 指定要跳转的页面路径
+  bindDateChange: function(e) {
+    console.log(e)
+    this.setData({
+      date: e.detail.value
     });
   },
-  loadEvents: function() {
+    // 选择时间时触发
+    bindTimeChange: function(e) {
+      this.setData({
+        time: e.detail.value
+      });
+    },
+    // 表单提交事件
+  formSubmit: function(e) {
+    const formData = e.detail.value;
+
+    // 创建 Event 对象
+    const newEvent = {
+      eventName: formData.eventName,
+      location: formData.location,
+      date: this.data.date,
+      time: this.data.time,
+      members: '',
+    };
+
     const app = getApp();
-    this.setData({
-      events: app.globalData.events
+    // 将新事件添加到全局 events 列表中
+    app.globalData.events.push(newEvent);
+    // 存储到本地缓存
+    wx.setStorage({
+      key: 'events',
+      data: app.globalData.events
     })
-  },
-  deleteEvent: function(e) {
-    const index = e.currentTarget.dataset.index;
-    const app = getApp();
-    wx.showModal({
-      title: '确认删除',
-      content: '确定要删除此事件吗？',
-      success: (res) => {
-        if (res.confirm) {
-          app.globalData.events.splice(index, 1)
-          this.setData({
-            events: app.globalData.events
-          })
-          wx.showToast({
-            title: '删除成功',
-            icon: 'success',
-          })
-        }
-      }
-    })
+    // 打印所有事件
+    console.log('All events:', app.globalData.events);
+
+    // 这里可以将数据发送到服务器或者进行其他处理
+    wx.showToast({
+      title: '提交成功',
+      icon: 'success',
+    });
+    setTimeout(() => wx.navigateBack(), 1500)
   },
 
   /**
    * Lifecycle function--Called when page load
    */
   onLoad(options) {
-    this.loadEvents()
+
   },
+
   /**
    * Lifecycle function--Called when page is initially rendered
    */
@@ -56,7 +71,7 @@ Page({
    * Lifecycle function--Called when page show
    */
   onShow() {
-    this.loadEvents()
+
   },
 
   /**
