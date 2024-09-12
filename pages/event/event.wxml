@@ -7,6 +7,9 @@
       <text>时间: {{item.time}}</text>
       <text>地点: {{item.location}}</text>
       <text>成员: {{item.members.join(', ')}}</text>
+      <button bind:tap="deleteEvent" data-index="{{index}}" class="delete-btn">
+        <image src="/assets/icon/delete-icon.png" class="delete-icon"></image>
+      </button>
     </view>
     <view style="height: 20rpx;"></view> <!-- 用于分隔每个事件 -->
   </block>

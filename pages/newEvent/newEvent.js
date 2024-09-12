@@ -45,10 +45,9 @@ Page({
     wx.showToast({
       title: '提交成功',
       icon: 'success',
-      duration: 2000
     });
     setTimeout(() => {
-      wx.navigateBack()({
+      wx.navigateBack({
         delta: 1
       });
     }, 1500)
