@@ -9,7 +9,7 @@ Page({
   },
   createEvent: function(e) {
     wx.navigateTo({
-      url: '/pages/event/event', // 指定要跳转的页面路径
+      url: '/pages/eventDetail/eventDetail', // 指定要跳转的页面路径
     });
   },
   loadEvents: function() {
@@ -17,6 +17,13 @@ Page({
     this.setData({
       events: app.globalData.events
     })
+  },
+  editEvent: function(e) {
+    console.log(e)
+    const index = e.currentTarget.dataset.index;
+    wx.navigateTo({
+      url: `/pages/eventDetail/eventDetail?index=${index}` // 跳转到事件详情页面，并传递事件索引
+    });
   },
   deleteEvent: function(e) {
     const index = e.currentTarget.dataset.index;
