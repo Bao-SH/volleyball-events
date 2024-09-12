@@ -1,13 +1,13 @@
 <!--pages/event/event.wxml-->
 <view class="container">
   <block wx:for="{{events}}" wx:key="index">
-    <view class="event-item" bind:tap="editEvent" data-index="{{index}}">
+    <view class="event-item" bind:tap="editEvent" data-id="{{item.id}}">
       <text>事件名称: {{item.name}}</text>
       <text>日期: {{item.date}}</text>
       <text>时间: {{item.time}}</text>
       <text>地点: {{item.location}}</text>
       <text>成员: {{item.members.join(', ')}}</text>
-      <button catch:tap="deleteEvent" data-index="{{index}}" class="delete-btn">
+      <button catch:tap="deleteEvent" data-id="{{item.id}}" class="delete-btn">
         <image src="/assets/icon/delete-icon.png" class="delete-icon"></image>
       </button>
     </view>

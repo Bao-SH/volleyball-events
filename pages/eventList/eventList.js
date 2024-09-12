@@ -20,20 +20,21 @@ Page({
   },
   editEvent: function(e) {
     console.log(e)
-    const index = e.currentTarget.dataset.index;
+    const id = e.currentTarget.dataset.id;
     wx.navigateTo({
-      url: `/pages/eventDetail/eventDetail?index=${index}` // 跳转到事件详情页面，并传递事件索引
+      url: `/pages/eventDetail/eventDetail?id=${id}` // 跳转到事件详情页面，并传递事件索引
     });
   },
   deleteEvent: function(e) {
-    const index = e.currentTarget.dataset.index;
+    const id = e.currentTarget.dataset.id;
     const app = getApp();
     wx.showModal({
       title: '确认删除',
       content: '确定要删除此事件吗？',
       success: (res) => {
         if (res.confirm) {
-          app.globalData.events.splice(index, 1)
+          const updatedEvents = app.globalData.events.filter(event => event.id !== eventId);
+          app.globalData.events = updatedEvents;
           this.setData({
             events: app.globalData.events
           })

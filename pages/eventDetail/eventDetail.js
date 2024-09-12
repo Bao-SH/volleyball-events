@@ -6,6 +6,7 @@ Page({
    */
   data: {
     event: { // 默认事件对象
+      id: '',
       name: '',
       location: '',
       date: '',
@@ -14,7 +15,6 @@ Page({
     },
     isUpdate: false,
     isEditing: false, // 标记是否为编辑模式
-    eventIdx: null
   },
 bindDateChange: function(e) {
   this.setData({
@@ -36,7 +36,8 @@ bindDateChange: function(e) {
   },
   // 表单提交事件
   formSubmit: function(e) {
-    console.log(this.data)
+    const app = getApp()
+    const event = this.data.event
     const {name, date, time} = this.data.event
     if (!date || !time) {
       wx.showToast({
@@ -50,12 +51,14 @@ bindDateChange: function(e) {
         'event.name': '默认事件'
       })
     }
+
     this.reverseIsEditing()
-    const app = getApp();
-    const event = this.data.event;
+
     if (this.data.isUpdate) {
-      app.globalData.events[this.data.eventIdx] = event;
+      const updatedEvents = [...app.globalData.events.filter(e => e.id !== event.id), event];
+      app.globalData.events = updatedEvents;
     } else {
+      event.id = app.globalData.eventIdCounter++
       app.globalData.events.push(event);
     }
     // 这里可以将数据发送到服务器或者进行其他处理
@@ -70,15 +73,26 @@ bindDateChange: function(e) {
    * Lifecycle function--Called when page load
    */
   onLoad(options) {
-    const index = options.index;
     const app = getApp();
-    if (index != undefined) {
-      this.setData({
-        event: app.globalData.events[index],
-        isUpdate: true,
-        eventIdx: index
-      })
-    } else {
+    const eventId = options.id;
+    console.log("eventId: " + eventId)
+    if (eventId) {
+      const event = app.globalData.events.find(event => event.id == eventId);
+      if (event) {
+        //更新模式
+        this.setData({
+          event: event,
+          isUpdate: true,
+        })
+      } else {
+        wx.showToast({
+          title: '未找到该事件，将新建事件',
+          icon: 'none'
+        })
+      }
+    }
+    else {
+      //新建模式，进入页面时不允许编辑
       this.reverseIsEditing()
     }
   },
