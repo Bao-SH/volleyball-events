@@ -14,9 +14,26 @@ Page({
   },
   loadEvents: function() {
     const app = getApp();
+    let events = app.globalData.events;
+
+    // 按 startTime 排序（最近的事件在上面）
+    events.sort((a, b) => {
+      const dateA = new Date(a.date).getTime();
+      const dateB = new Date(b.date).getTime();
+
+      if (dateA !== dateB) {
+        // 按 date 排序
+        return dateA - dateB;
+      } else {
+        // 如果 date 相同，则按 startTime 排序
+        const startTimeA = new Date(a.startTime).getTime();
+        const startTimeB = new Date(b.startTime).getTime();
+        return startTimeA - startTimeB;
+      }
+    });
     this.setData({
-      events: app.globalData.events
-    })
+      events: events
+    });
   },
   editEvent: function(e) {
     console.log(e)

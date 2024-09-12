@@ -35,9 +35,21 @@ Page({
     const app = getApp()
     const event = this.data.event
     const {name, date, startTime, endTime} = this.data.event
-    if (!date || !startTime || !endTime) {
+    if (!date || !startTime) {
       wx.showToast({
         title: '日期和时间不能为空',
+        icon: 'none'
+      })
+      return
+    }
+    if (!endTime) {
+      this.setData({
+        'event.endTime': startTime
+      })
+    }
+    if (!this.validateTime(startTime, endTime)) {
+      wx.showToast({
+        title: '结束时间不能早于开始时间',
         icon: 'none'
       })
       return
@@ -63,6 +75,14 @@ Page({
       icon: 'success',
     });
     setTimeout(() => wx.navigateBack(), 1500)
+  },
+  validateTime: function(startTime, endTime) {
+    const start = new Date(`1970-01-01T${startTime}:00`)
+    const end = new Date(`1970-01-01T${endTime}:00`)
+    if (end < start) {
+      return false;
+    }
+    return true;
   },
 
   /**
