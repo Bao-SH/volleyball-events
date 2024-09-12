@@ -47,13 +47,11 @@ Page({
       icon: 'success',
       duration: 2000
     });
-
-    // 重置表单
-    this.setData({
-      date: '',
-      time: '',
-      members: ''
-    });
+    setTimeout(() => {
+      wx.navigateBack()({
+        delta: 1
+      });
+    }, 1500)
   },
 
   /**

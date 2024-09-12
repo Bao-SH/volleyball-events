@@ -1,3 +1,20 @@
 <!--pages/event/event.wxml-->
-<text>Events</text>
+<view class="container">
+  <block wx:for="{{events}}" wx:key="index">
+    <view class="event-item">
+      <text>事件名称: {{item.eventName}}</text>
+      <text>日期: {{item.date}}</text>
+      <text>时间: {{item.time}}</text>
+      <text>地点: {{item.location}}</text>
+      <text>成员: {{item.members.join(', ')}}</text>
+    </view>
+    <view style="height: 20rpx;"></view> <!-- 用于分隔每个事件 -->
+  </block>
+  
+  <!-- 当没有事件时显示提示信息 -->
+  <view wx:if="{{events.length === 0}}">
+    <text>当前没有事件</text>
+  </view>
+</view>
+
 <button bindtap="createEvent">Create A New Event</button>

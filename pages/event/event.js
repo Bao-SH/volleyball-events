@@ -5,7 +5,7 @@ Page({
    * Page initial data
    */
   data: {
-    eventsList: []
+    events: [] 
   },
   createEvent: function(e) {
     wx.navigateTo({
@@ -17,7 +17,10 @@ Page({
    * Lifecycle function--Called when page load
    */
   onLoad(options) {
-
+    const app = getApp();
+    this.setData({
+      events: app.globalData.events
+    })
   },
 
   /**
@@ -31,7 +34,10 @@ Page({
    * Lifecycle function--Called when page show
    */
   onShow() {
-
+    const app = getApp();
+    this.setData({
+      events: app.globalData.events
+    })
   },
 
   /**
