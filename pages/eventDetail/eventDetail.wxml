@@ -12,7 +12,7 @@
     <!-- 事件日期 -->
     <view class="form-item">
       <label>日期：</label>
-      <picker mode="date" value="{{event.date}}" disabled="{{!isEditing}}" bindchange="bindDateChange">
+      <picker mode="date" value="{{event.date}}" disabled="{{!isEditing}}" data-field="date" bindchange="handleInputChange">
         <view class="picker {{isEditing? '' : 'readonly'}}">
           {{event.date ? event.date : '请选择日期'}}
         </view>
@@ -21,10 +21,21 @@
     
     <!-- 事件时间 -->
     <view class="form-item">
-      <label>时间：</label>
-      <picker mode="time" value="{{event.time}}" disabled="{{!isEditing}}" bindchange="bindTimeChange">
+      <label>开始时间：</label>
+      <picker mode="time" value="{{event.startTime}}" disabled="{{!isEditing}}" data-field="startTime" bindchange="handleInputChange">
         <view class="picker {{isEditing? '' : 'readonly'}}" wx:class="{{isEditing ? '' : 'readonly'}}">
-          {{event.time ? event.time : '请选择时间'}}
+          {{event.startTime ? event.startTime : '请选择时间'}}
+        </view>
+      </picker>
+    </view>
+
+    <!-- 事件时间 -->
+    <view class="form-item">
+      <label>结束时间：</label>
+      <picker mode="time" value="{{event.endTime}}" disabled="{{!isEditing}}" bindchange="handleInputChange"
+      data-field="endTime" >
+        <view class="picker {{isEditing? '' : 'readonly'}}" wx:class="{{isEditing ? '' : 'readonly'}}">
+          {{event.endTime ? event.endTime : '请选择时间'}}
         </view>
       </picker>
     </view>
@@ -32,7 +43,8 @@
     <!-- 事件地点 -->
     <view class="form-item" wx:class="{{isEditing? '' : 'readonly'}}">
       <label>地点：</label>
-      <input name="location" placeholder="请输入地点" value="{{event.location}}" disabled="{{!isEditing}}" data-field="location" bindinput="handleInputChange" class="{{isEditing? '' : 'readonly'}}"/>
+      <input name="location" placeholder="请输入地点" value="{{event.location}}" disabled="{{!isEditing}}"
+      data-field="location" bindinput="handleInputChange" class="{{isEditing? '' : 'readonly'}}"/>
     </view>
 
     <!-- 事件成员

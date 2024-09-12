@@ -10,24 +10,20 @@ Page({
       name: '',
       location: '',
       date: '',
-      time: '',
+      startTime: '',
+      endTime: '',
       members: [] // 成员列表初始化为空数组
     },
     isUpdate: false,
     isEditing: false, // 标记是否为编辑模式
   },
-bindDateChange: function(e) {
-  this.setData({
-    'event.date': e.detail.value
-  });
-},
-  // 选择时间时触发
-  bindTimeChange: function(e) {
+  bindDateChange: function(e) {
     this.setData({
-      'event.time': e.detail.value
+      'event.date': e.detail.value
     });
   },
   handleInputChange: function(e) {
+    console.log(e)
     const { field } = e.currentTarget.dataset
     const value = e.detail.value
     this.setData({
@@ -38,8 +34,8 @@ bindDateChange: function(e) {
   formSubmit: function(e) {
     const app = getApp()
     const event = this.data.event
-    const {name, date, time} = this.data.event
-    if (!date || !time) {
+    const {name, date, startTime, endTime} = this.data.event
+    if (!date || !startTime || !endTime) {
       wx.showToast({
         title: '日期和时间不能为空',
         icon: 'none'

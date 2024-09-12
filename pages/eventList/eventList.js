@@ -26,7 +26,7 @@ Page({
     });
   },
   deleteEvent: function(e) {
-    const id = e.currentTarget.dataset.id;
+    const eventId = e.currentTarget.dataset.id;
     const app = getApp();
     wx.showModal({
       title: '确认删除',
