@@ -5,14 +5,15 @@
     <!-- 事件名称 -->
     <view class="form-item">
       <label>事件名称：</label>
-      <input name="name" value="{{event.name}}" placeholder="请输入事件名称" data-field="name" bindinput="handleInputChange"/>
+      <input name="name" value="{{event.name}}" placeholder="请输入事件名称" data-field="name" 
+      disabled="{{!isEditing}}" bindinput="handleInputChange" class="{{isEditing? '' : 'readonly'}}"/>
     </view>
     
     <!-- 事件日期 -->
     <view class="form-item">
       <label>日期：</label>
-      <picker mode="date" value="{{event.date}}" bindchange="bindDateChange">
-        <view class="picker">
+      <picker mode="date" value="{{event.date}}" disabled="{{!isEditing}}" bindchange="bindDateChange">
+        <view class="picker {{isEditing? '' : 'readonly'}}">
           {{event.date ? event.date : '请选择日期'}}
         </view>
       </picker>
@@ -21,17 +22,17 @@
     <!-- 事件时间 -->
     <view class="form-item">
       <label>时间：</label>
-      <picker mode="time" value="{{event.time}}" bindchange="bindTimeChange">
-        <view class="picker">
+      <picker mode="time" value="{{event.time}}" disabled="{{!isEditing}}" bindchange="bindTimeChange">
+        <view class="picker {{isEditing? '' : 'readonly'}}" wx:class="{{isEditing ? '' : 'readonly'}}">
           {{event.time ? event.time : '请选择时间'}}
         </view>
       </picker>
     </view>
 
     <!-- 事件地点 -->
-    <view class="form-item">
+    <view class="form-item" wx:class="{{isEditing? '' : 'readonly'}}">
       <label>地点：</label>
-      <input name="location" placeholder="请输入地点" value="{{event.location}}" data-field="location" bindinput="handleInputChange" />
+      <input name="location" placeholder="请输入地点" value="{{event.location}}" disabled="{{!isEditing}}" data-field="location" bindinput="handleInputChange" class="{{isEditing? '' : 'readonly'}}"/>
     </view>
 
     <!-- 事件成员
@@ -42,10 +43,8 @@
 
     <!-- 提交按钮 -->
     <view class="form-item">
-      <button formType="submit">保存</button>
-    </view>
-    <view class="form-item">
-      <button bind:tap="cancelSubmit">返回</button>
+      <button wx:if="{{isEditing}}" formType="submit">保存</button>
+      <button wx:else bindtap="reverseIsEditing">编辑</button>
     </view>
   </form>
 </view>

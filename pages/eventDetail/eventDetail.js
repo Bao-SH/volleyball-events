@@ -13,7 +13,8 @@ Page({
         time: '',
         members: [] // 成员列表初始化为空数组
       },
-      isUpdating: false, // 标记是否为编辑模式
+      isUpdate: false,
+      isEditing: false, // 标记是否为编辑模式
       eventIdx: null
     },
   },
@@ -38,17 +39,17 @@ Page({
   },
   // 表单提交事件
   formSubmit: function(e) {
+    this.reverseIsEditing()
     const app = getApp();
     const event = this.data.event;
     if (this.data.isUpdate) {
-      app.globalData.events[eventIdx] = event;
+      app.globalData.events[this.data.eventIdx] = event;
     } else {
       app.globalData.events.push(event);
     }
-
     // 这里可以将数据发送到服务器或者进行其他处理
     wx.showToast({
-      title: this.data.isUpdate ? '事件已更新' : '事件已创建',
+      title: '事件已保存',
       icon: 'success',
     });
     setTimeout(() => wx.navigateBack(), 1500)
@@ -60,17 +61,21 @@ Page({
   onLoad(options) {
     const index = options.index;
     const app = getApp();
-    console.log("index: " + index)
-    if (index != undefined && index != null) {
+    if (index != undefined) {
       this.setData({
         event: app.globalData.events[index],
         isUpdate: true,
         eventIdx: index
       })
+    } else {
+      this.reverseIsEditing()
     }
   },
-  cancelSubmit: function(e) {
-    wx.navigateBack()
+  reverseIsEditing: function() {
+    this.setData({
+      isEditing: !this.data.isEditing
+    });
+    console.log("reversed isEditing: " + this.data.isEditing)
   },
 
   /**

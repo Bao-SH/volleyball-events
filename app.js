@@ -8,6 +8,7 @@ App({
     wx.getStorage({
       key: 'events',
       success: (res) => {
+        console.log(res)
         this.globalData.events = res.data
       },
       fail: () => {
