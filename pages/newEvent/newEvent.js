@@ -37,7 +37,11 @@ Page({
     const app = getApp();
     // 将新事件添加到全局 events 列表中
     app.globalData.events.push(newEvent);
-
+    // 存储到本地缓存
+    wx.setStorage({
+      key: 'events',
+      data: app.globalData.events
+    })
     // 打印所有事件
     console.log('All events:', app.globalData.events);
 
@@ -46,11 +50,7 @@ Page({
       title: '提交成功',
       icon: 'success',
     });
-    setTimeout(() => {
-      wx.navigateBack({
-        delta: 1
-      });
-    }, 1500)
+    setTimeout(() => wx.navigateBack(), 1500)
   },
 
   /**

@@ -12,15 +12,19 @@ Page({
       url: '/pages/newEvent/newEvent', // 指定要跳转的页面路径
     });
   },
+  loadEvents: function() {
+    const app = getApp();
+    this.setData({
+      events: app.globalData.events
+    })
+  },
   deleteEvent: function(e) {
     const index = e.currentTarget.dataset.index;
-    console.log("index: " + index)
     const app = getApp();
     wx.showModal({
       title: '确认删除',
       content: '确定要删除此事件吗？',
       success: (res) => {
-        console.log(res)
         if (res.confirm) {
           app.globalData.events.splice(index, 1)
           this.setData({
@@ -40,12 +44,6 @@ Page({
    */
   onLoad(options) {
     this.loadEvents()
-  },
-  loadEvents: function() {
-    const app = getApp();
-    this.setData({
-      events: app.globalData.events
-    })
   },
   /**
    * Lifecycle function--Called when page is initially rendered

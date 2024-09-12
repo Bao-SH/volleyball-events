@@ -1,10 +1,32 @@
 // app.js
 App({
-  // onLaunch() {
-  //   // 展示本地存储能力
-  //   const logs = wx.getStorageSync('logs') || []
-  //   logs.unshift(Date.now())
-  //   wx.setStorageSync('logs', logs)
+  globalData: {
+    events: []
+  },
+  onLaunch() {
+    // 展示本地存储能力
+    wx.getStorage({
+      key: 'events',
+      success: (res) => {
+        this.globalData.events = res.data
+      },
+      fail: () => {
+        this.globalData.events = []
+      }
+    })
+  },
+  onHide() {
+    this.saveEventsToStorage()
+  },
+  onunload() {
+    this.saveEventsToStorage()
+  },
+  saveEventsToStorage: function(e) {
+    wx.setStorage({
+      key: 'events',
+      data: this.globalData.events
+    })
+  }
 
   //   // 登录
   //   wx.login({
@@ -13,7 +35,4 @@ App({
   //     }
   //   })
   // },
-  globalData: {
-    events: []
-  }
 })
