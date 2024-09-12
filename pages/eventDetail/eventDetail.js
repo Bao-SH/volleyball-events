@@ -5,24 +5,22 @@ Page({
    * Page initial data
    */
   data: {
-    data: {
-      event: { // 默认事件对象
-        name: '',
-        location: '',
-        date: '',
-        time: '',
-        members: [] // 成员列表初始化为空数组
-      },
-      isUpdate: false,
-      isEditing: false, // 标记是否为编辑模式
-      eventIdx: null
+    event: { // 默认事件对象
+      name: '',
+      location: '',
+      date: '',
+      time: '',
+      members: [] // 成员列表初始化为空数组
     },
+    isUpdate: false,
+    isEditing: false, // 标记是否为编辑模式
+    eventIdx: null
   },
-  bindDateChange: function(e) {
-    this.setData({
-      'event.date': e.detail.value
-    });
-  },
+bindDateChange: function(e) {
+  this.setData({
+    'event.date': e.detail.value
+  });
+},
   // 选择时间时触发
   bindTimeChange: function(e) {
     this.setData({
@@ -32,13 +30,26 @@ Page({
   handleInputChange: function(e) {
     const { field } = e.currentTarget.dataset
     const value = e.detail.value
-    console.log("field: " + field)
     this.setData({
       [`event.${field}`]: value
     })
   },
   // 表单提交事件
   formSubmit: function(e) {
+    console.log(this.data)
+    const {name, date, time} = this.data.event
+    if (!date || !time) {
+      wx.showToast({
+        title: '日期和时间不能为空',
+        icon: 'none'
+      })
+      return
+    }
+    if (!name) {
+      this.setData({
+        'event.name': '默认事件'
+      })
+    }
     this.reverseIsEditing()
     const app = getApp();
     const event = this.data.event;
