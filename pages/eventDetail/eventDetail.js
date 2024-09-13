@@ -70,6 +70,7 @@ Page({
       app.globalData.events.push(event);
     }
     // 这里可以将数据发送到服务器或者进行其他处理
+    this.saveICSFile(event)
     wx.showToast({
       title: '事件已保存',
       icon: 'success',
@@ -83,6 +84,56 @@ Page({
       return false;
     }
     return true;
+  },
+
+  generateICS: function(event) {
+    const { name, location, date, startTime, endTime } = event
+    const icsContent = `BEGIN:VCALENDAR
+      VERSION:2.0
+      PRODID:-//Your App Name//Your App Version//EN
+      BEGIN:VEVENT
+      UID:${new Date().getTime()}@eventexample.com
+      DTSTAMP:${this.formatToICSDateTime(new Date())}
+      DTSTART:${this.formatToICSDateTime(new Date(`${date}T${startTime}:00`))}
+      DTEND:${this.formatToICSDateTime(new Date(`${date}T${endTime}:00`))}
+      SUMMARY:${name}
+      DESCRIPTION:事件详情
+      LOCATION:${location}
+      END:VEVENT
+      END:VCALENDAR`
+      return icsContent
+  },
+  formatToICSDateTime: function(date) {
+    return date.toISOString().replace(/[-:]/g, '').split('.')[0] + 'Z';
+  },
+  saveICSFile: function(event) {
+    const icsContent = this.generateICS(event);
+    const fs = wx.getFileSystemManager();
+    const filePath = `${wx.env.USER_DATA_PATH}/event.ics`;
+    console.log("filePath: " + filePath)
+    fs.writeFile({
+      filePath: filePath,
+      data: icsContent,
+      encoding: 'utf8',
+      success() {
+        wx.openDocument({
+          filePath: filePath,
+          fileType: 'ics',
+          success() {
+            console.log('ICS 文件已打开');
+          },
+          fail(err) {
+            console.log('ICS文件打开失败',err)
+          }
+        });
+      },
+      fail(err) {
+        console.log('文件保存失败', err);
+      },
+      complete() {
+        console.log('文件保存complete')
+      }
+    });
   },
 
   /**
