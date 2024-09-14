@@ -34,7 +34,7 @@ jobs:
           hdiutil attach wechat_dev_tools.dmg
           # 打印挂载点信息以确认路径
           ls /Volumes
-          ls -l /Volumes
+          ls /Volumes/微信开发者工具\ RC
           hdiutil info
           # 使用正确的卷名进行复制
           cp -r /Volumes/微信开发者工具\ RC/WeChat\ DevTools.app /Applications/
