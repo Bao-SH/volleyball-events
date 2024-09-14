@@ -1,4 +1,4 @@
-name: Run Tests
+name: CI Pipeline
 
 on:
   push:
@@ -10,28 +10,29 @@ on:
 
 jobs:
   test:
-    runs-on: ubuntu-latest
+    runs-on: macos-latest
+
     steps:
-    - name: Checkout code
-      uses: actions/checkout@v3
+      - name: Checkout code
+        uses: actions/checkout@v3
 
-    - name: Install Node.js
-      uses: actions/setup-node@v3
-      with:
-        node-version: 16
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '16'
 
-    - name: Install WeChat DevTools (CLI)
-      run: |
-        wget https://servicewechat.com/download/wechatwebdevtools/linux64/Stable/1.05.2209300.tar.gz -O wechat_dev_tools.tar.gz
-        mkdir -p wechat_dev_tools
-        tar -xzf wechat_dev_tools.tar.gz -C wechat_dev_tools
-        sudo chmod +x wechat_dev_tools/cli
+      - name: Install Dependencies
+        run: npm install
 
-    - name: Set CLI_PATH environment variable
-      run: echo "CLI_PATH=${{ github.workspace }}/wechat_dev_tools/cli" >> $GITHUB_ENV
+      - name: Download WeChat DevTools CLI
+        run: |
+          curl -L https://servicewechat.com/wxa-dev-logic/download_redirect?type=darwin_x64&from=mpwiki&download_version=1062312061&version_type=1 -o wechat_dev_tools.dmg
+          hdiutil attach wechat_dev_tools.dmg
+          cp -r /Volumes/WeChat\ DevTools/WeChat\ DevTools.app /Applications/
+          hdiutil detach /Volumes/WeChat\ DevTools/
+          sudo ln -s /Applications/WeChat\ DevTools.app/Contents/MacOS/cli /usr/local/bin/cli
 
-    - name: Install dependencies
-      run: npm install
-
-    - name: Run tests
-      run: npm test
+      - name: Run Tests
+        env:
+          CLI_PATH: /usr/local/bin/cli
+        run: npm test
