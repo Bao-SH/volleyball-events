@@ -19,8 +19,6 @@ describe('eventList', () => {
     page = await miniProgram.reLaunch('/pages/eventList/eventList');
     // 打开 EventList 页面
     await page.waitFor(500); // 等待页面加载
-    const storedEvents = await miniProgram.callWxMethod('getStorageSync', 'events');
-    console.log("存储的事件数据:", storedEvents);
   })
   afterAll(async () => {
     await miniProgram.callWxMethod('setStorage', {

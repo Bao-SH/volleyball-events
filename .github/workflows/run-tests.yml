@@ -37,9 +37,9 @@ jobs:
           hdiutil detach /Volumes/微信开发者工具\ RC/
           sudo ln -s /Applications/wechatwebdevtools.app/Contents/MacOS/cli /usr/local/bin/cli
       - name: Print project directory
-        run: ls -la $GITHUB_WORKSPACE
+        run: ls -la ${{ github.workspace }}
       - name: Run Tests
         env:
           CLI_PATH: /usr/local/bin/cli
-          PROJECT_PATH: $GITHUB_WORKSPACE
+          PROJECT_PATH: ${{ github.workspace }}
         run: npm test
