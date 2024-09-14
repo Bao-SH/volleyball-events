@@ -32,15 +32,12 @@ jobs:
       - name: Install WeChat DevTools CLI
         run: |
           hdiutil attach wechat_dev_tools.dmg
-          # 打印挂载点信息以确认路径
-          ls /Volumes
-          ls /Volumes/微信开发者工具\ RC
           hdiutil info
-          # 使用正确的卷名进行复制
           cp -r /Volumes/微信开发者工具\ RC/wechatwebdevtools.app /Applications/
           hdiutil detach /Volumes/微信开发者工具\ RC/
-          sudo ln -s /Applications/WeChat\ DevTools.app/Contents/MacOS/cli /usr/local/bin/cli
+          sudo ln -s /Applications/wechatwebdevtools.app/Contents/MacOS/cli /usr/local/bin/cli
       - name: Run Tests
         env:
           CLI_PATH: /usr/local/bin/cli
+          PROJECT_PATH: $GITHUB_WORKSPACE
         run: npm test
