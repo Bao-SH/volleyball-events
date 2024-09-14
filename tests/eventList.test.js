@@ -6,6 +6,7 @@ describe('eventList', () => {
   jest.setTimeout(30000); 
   beforeAll(async () => {
     miniProgram = await automator.launch({
+      cliPath: process.env.CLI_PATH || '/Applications/wechatwebdevtools.app/Contents/MacOS/cli', 
       projectPath: '/Users/shuanghui.bao/WeChatProjects/miniprogram-3', // 项目文件地址
     })
     //设置初始化数据

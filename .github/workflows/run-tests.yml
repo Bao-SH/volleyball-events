@@ -3,40 +3,35 @@ name: Run Tests
 on:
   push:
     branches:
-      - main  
+      - main
   pull_request:
     branches:
-      - main  
+      - main
 
 jobs:
   test:
     runs-on: ubuntu-latest
-
-    strategy:
-      matrix:
-        node-version: [16.x, 18.x] 
-
     steps:
     - name: Checkout code
       uses: actions/checkout@v3
 
-    - name: Use Node.js ${{ matrix.node-version }}
+    - name: Install Node.js
       uses: actions/setup-node@v3
       with:
-        node-version: ${{ matrix.node-version }}
+        node-version: 16
 
-    # 安装项目依赖
+    - name: Install WeChat DevTools (CLI)
+      run: |
+        wget https://servicewechat.com/download/wechatwebdevtools/linux64/Stable/1.05.2209300.tar.gz -O wechat_dev_tools.tar.gz
+        mkdir -p wechat_dev_tools
+        tar -xzf wechat_dev_tools.tar.gz -C wechat_dev_tools
+        sudo chmod +x wechat_dev_tools/cli
+
+    - name: Set CLI_PATH environment variable
+      run: echo "CLI_PATH=${{ github.workspace }}/wechat_dev_tools/cli" >> $GITHUB_ENV
+
     - name: Install dependencies
       run: npm install
 
-    # 运行测试
     - name: Run tests
       run: npm test
-
-    # 在 GitHub Actions 中生成测试快照 (如有)
-    - name: Upload jest snapshots
-      if: always()
-      uses: actions/upload-artifact@v3
-      with:
-        name: jest-snapshots
-        path: ./__tests__/__snapshots__
