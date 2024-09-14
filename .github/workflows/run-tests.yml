@@ -26,11 +26,16 @@ jobs:
 
       - name: Download WeChat DevTools CLI
         run: |
-          curl -L https://servicewechat.com/wxa-dev-logic/download_redirect?type=darwin_x64&from=mpwiki&download_version=1062312061&version_type=1 -o wechat_dev_tools.dmg
+          curl -L "https://servicewechat.com/wxa-dev-logic/download_redirect?type=darwin_x64&from=mpwiki&download_version=1062312061&version_type=1" --output wechat_dev_tools.dmg
+          ls -lh wechat_dev_tools.dmg  # 检查文件是否下载成功
+
+      - name: Install WeChat DevTools CLI
+        run: |
           hdiutil attach wechat_dev_tools.dmg
           cp -r /Volumes/WeChat\ DevTools/WeChat\ DevTools.app /Applications/
           hdiutil detach /Volumes/WeChat\ DevTools/
           sudo ln -s /Applications/WeChat\ DevTools.app/Contents/MacOS/cli /usr/local/bin/cli
+
 
       - name: Run Tests
         env:
