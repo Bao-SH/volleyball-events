@@ -3,7 +3,9 @@
   "version": "1.0.0",
   "main": ".eslintrc.js",
   "scripts": {
-    "test": "jest"
+    "test": "jest",
+    "test:unit": "jest --testPathPattern=/tests/",
+    "test:automation": "jest  --testPathPattern=/automationTests/"    
   },
   "keywords": [],
   "author": "",

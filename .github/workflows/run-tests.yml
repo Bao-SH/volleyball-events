@@ -10,36 +10,16 @@ on:
 
 jobs:
   test:
-    runs-on: macos-latest
+    runs-on: ubuntu-latest
 
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
-
       - name: Set up Node.js
         uses: actions/setup-node@v3
         with:
           node-version: '16'
-
       - name: Install Dependencies
         run: npm install
-
-      - name: Download WeChat DevTools CLI
-        run: |
-          curl -L "https://servicewechat.com/wxa-dev-logic/download_redirect?type=darwin_x64&from=mpwiki&download_version=1062312061&version_type=1" --output wechat_dev_tools.dmg
-          ls -lh wechat_dev_tools.dmg  # 检查文件是否下载成功
-
-      - name: Install WeChat DevTools CLI
-        run: |
-          hdiutil attach wechat_dev_tools.dmg
-          hdiutil info
-          cp -r /Volumes/微信开发者工具\ RC/wechatwebdevtools.app /Applications/
-          hdiutil detach /Volumes/微信开发者工具\ RC/
-          sudo ln -s /Applications/wechatwebdevtools.app/Contents/MacOS/cli /usr/local/bin/cli
-      - name: Print project directory
-        run: ls -la ${{ github.workspace }}
       - name: Run Tests
-        env:
-          CLI_PATH: /usr/local/bin/cli
-          PROJECT_PATH: ${{ github.workspace }}
-        run: npm test
+        run: npm run test:unit
