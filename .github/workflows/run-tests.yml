@@ -37,8 +37,8 @@ jobs:
           ls /Volumes/微信开发者工具\ RC
           hdiutil info
           # 使用正确的卷名进行复制
-          cp -r /Volumes/微信开发者工具\ RC/WeChat\ DevTools.app /Applications/
-          hdiutil detach /Volumes/微信\ 开发者工具\ RC/
+          cp -r /Volumes/微信开发者工具\ RC/wechatwebdevtools.app /Applications/
+          hdiutil detach /Volumes/微信开发者工具\ RC/
           sudo ln -s /Applications/WeChat\ DevTools.app/Contents/MacOS/cli /usr/local/bin/cli
       - name: Run Tests
         env:
