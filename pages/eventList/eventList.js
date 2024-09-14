@@ -1,4 +1,3 @@
-// pages/event/event.js
 const { sortEventsByDate } = require('../../utils/util')
 Page({
 
@@ -8,7 +7,7 @@ Page({
   data: {
     events: [] 
   },
-  createEvent: function(e) {
+  createEvent: function() {
     wx.navigateTo({
       url: '/pages/eventDetail/eventDetail', // 指定要跳转的页面路径
     });

@@ -1,4 +1,5 @@
 // pages/newEvent/newEvent.js
+const { validateTime } = require('../../utils/util');
 Page({
 
   /**
@@ -47,7 +48,7 @@ Page({
         'event.endTime': startTime
       })
     }
-    if (!this.validateTime(startTime, endTime)) {
+    if (!validateTime(startTime, endTime)) {
       wx.showToast({
         title: '结束时间不能早于开始时间',
         icon: 'none'
@@ -76,14 +77,6 @@ Page({
       icon: 'success',
     });
     setTimeout(() => wx.navigateBack(), 1500)
-  },
-  validateTime: function(startTime, endTime) {
-    const start = new Date(`1970-01-01T${startTime}:00`)
-    const end = new Date(`1970-01-01T${endTime}:00`)
-    if (end < start) {
-      return false;
-    }
-    return true;
   },
 
   generateICS: function(event) {

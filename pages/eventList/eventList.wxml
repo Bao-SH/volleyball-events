@@ -20,5 +20,4 @@
     <text>当前没有事件</text>
   </view>
 </view>
-
-<button bindtap="createEvent">Create A New Event</button>
+<button bindtap="createEvent" class="create-btn">Create A New Event</button>
