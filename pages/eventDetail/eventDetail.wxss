@@ -1,4 +1,4 @@
-/* newPage.wxss */
+/* newPage.wxss
 .container {
   padding: 20px;
 }

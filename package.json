@@ -5,7 +5,7 @@
   "scripts": {
     "test": "jest",
     "test:unit": "jest --testPathPattern=/tests/",
-    "test:automation": "jest  --testPathPattern=/automationTests/"    
+    "test:automation": "jest  --testPathPattern=/automationTests/"
   },
   "keywords": [],
   "author": "",
@@ -16,5 +16,8 @@
     "jest-environment-jsdom": "^29.7.0",
     "miniprogram-automator": "^0.12.1",
     "miniprogram-simulate": "^1.6.1"
+  },
+  "dependencies": {
+    "weui-miniprogram": "^1.4.1"
   }
 }
