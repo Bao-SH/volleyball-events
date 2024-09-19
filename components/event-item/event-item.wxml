@@ -1,0 +1,23 @@
+<view class="event-card">
+  <view class="event-header" wx:if="{{event.displayName || event.date}}">
+    <text class="event-name">{{event.displayName}}</text>
+    <text class="event-date">{{event.date}}</text>
+  </view>
+  
+  <view class="event-time" wx:if="{{event.startTime || event.endTime}}">
+    <text wx:if="{{event.startTime && event.endTime}}">
+      From {{event.startTime}} To {{event.endTime}}
+    </text>
+    <text wx:elif="{{event.startTime}}">
+      Start Time: {{event.startTime}}
+    </text>
+    <text wx:elif="{{event.endTime}}">
+      End Time: {{event.endTime}}
+    </text>
+  </view>
+  
+  <view class="event-location" wx:if="{{event.location}}">
+    <text>Location: {{event.location}}</text>
+  </view>
+</view>
+

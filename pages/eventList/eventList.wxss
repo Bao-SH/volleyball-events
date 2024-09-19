@@ -1,24 +1,29 @@
-/* pages/event/event.wxss */
-.container {
-  padding: 20rpx;
+/* Overall page layout */
+.page {
+  padding: 20px;
 }
 
-.event-item {
-  padding: 20rpx;
-  border: 1px solid #ddd;
-  border-radius: 10rpx;
-  margin-bottom: 20rpx;
-  display: flex;
-  justify-content: space-between;
-  align-items: center; /* 确保内容和删除按钮垂直居中对齐 */
-}
-.delete-btn {
-  background-color: transparent;
+.add-button {
+  color: #000;
   border: none;
-  padding: 0;
+  font-size: 20px;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 50%;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
-.delete-icon {
-  width: 40rpx;
-  height: 40rpx;
+/* Event list container */
+.event-list {
+  display: flex;
+  flex-direction: column;
+}
+
+/* Separator between events */
+.event-slideview {
+  margin-bottom: 10px;
+  border-radius: 8px;
 }

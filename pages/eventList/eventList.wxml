@@ -1,23 +1,15 @@
-<!--pages/event/event.wxml-->
-<view class="container">
+<view class="page">
   <block wx:for="{{events}}" wx:key="id">
-    <view class="event-item" bind:tap="editEvent" data-id="{{item.id}}">
-      <text>事件名称: {{item.name}}</text>
-      <text>日期: {{item.date}}</text>
-      <text>开始时间: {{item.startTime}}</text>
-      <text>结束时间: {{item.endTime}}</text>
-      <text>地点: {{item.location}}</text>
-      <text>成员: {{item.members.join(', ')}}</text>
-      <button catch:tap="deleteEvent" data-id="{{item.id}}" class="delete-btn">
-        <image src="/assets/icon/delete-icon.png" class="delete-icon"></image>
-      </button>
-    </view>
-    <view style="height: 20rpx;"></view> <!-- 用于分隔每个事件 -->
+    <mp-slideview
+      ext-class="event-slideview"
+      wx:if="{{item}}"
+      buttons="{{buttons}}"
+      bindbuttontap="slideButtonTap"
+      data-id="{{item.id}}">
+      <event-item
+        event="{{item}}"
+      ></event-item>
+    </mp-slideview>
   </block>
-  
-  <!-- 当没有事件时显示提示信息 -->
-  <view wx:if="{{events.length === 0}}">
-    <text>当前没有事件</text>
-  </view>
+  <button bind:tap="createEvent">Create Event</button>
 </view>
-<button bindtap="createEvent" class="create-btn">Create A New Event</button>
