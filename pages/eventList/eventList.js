@@ -5,6 +5,8 @@ Page({
    * Page initial data
    */
   data: {
+    showSlide: false,
+    currentSlideId: null,
     buttons: [
       {
         type: 'warn',
@@ -13,6 +15,30 @@ Page({
       }
     ],
     events: [] 
+  },
+  // 点击页面其他地方时触发
+  handlePageTap(e) {
+    if (this.data.currentSlideId !== null) {
+      this.setData({ currentSlideId: null });  // 隐藏 slideview
+    }
+  },
+  // 处理 slideview 显示
+  handleShowSlide(e) {
+    console.log("进入show ")
+    const { id } = e.currentTarget.dataset;  // 获取当前点击的 slideview 的 id
+    console.log(id)
+    this.setData({
+      currentSlideId: id  // 设置当前显示的 slideview
+    });
+  },
+  // 处理 slideview 隐藏
+  handleHideSlide() {
+    this.setData({
+      currentSlideId: null  // 重置 currentSlideId
+    });
+  },
+  slideButtonTap(e) {
+    console.log('slide button tap', e.detail)
   },
   createEvent: function() {
     wx.navigateTo({
@@ -35,20 +61,20 @@ Page({
     });
   },
 
-  slideButtonTap: function(e) {
-    console.log("enter button tap")
-    const { id } = e.currentTarget.dataset;
-    wx.showModal({
-      title: '确认删除',
-      content: '您确定要删除此事件吗？',
-      success: (res) => {
-        if (res.confirm) {
-          // 触发父组件的删除事件
-          this.triggerEvent('deleteEvent', { id });
-        }
-      }
-    });
-  },
+  // slideButtonTap: function(e) {
+  //   console.log("enter button tap")
+  //   const { id } = e.currentTarget.dataset;
+  //   wx.showModal({
+  //     title: '确认删除',
+  //     content: '您确定要删除此事件吗？',
+  //     success: (res) => {
+  //       if (res.confirm) {
+  //         // 触发父组件的删除事件
+  //         this.triggerEvent('deleteEvent', { id });
+  //       }
+  //     }
+  //   });
+  // },
   editEvent: function(e) {
     console.log(e)
     const id = e.currentTarget.dataset.id;

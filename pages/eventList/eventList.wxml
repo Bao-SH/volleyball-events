@@ -4,6 +4,8 @@
       ext-class="event-slideview"
       wx:if="{{item}}"
       buttons="{{buttons}}"
+      bindshow="handleShowSlide"
+      bindhide="handleHideSlide"
       bindbuttontap="slideButtonTap"
       data-id="{{item.id}}">
       <event-item

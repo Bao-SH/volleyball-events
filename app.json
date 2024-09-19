@@ -27,7 +27,7 @@
     "mp-checkbox-group": "weui-miniprogram/checkbox-group/checkbox-group",
     "mp-cell": "weui-miniprogram/cell/cell",
     "mp-cells": "weui-miniprogram/cells/cells",
-    "mp-slideview": "weui-miniprogram/slideview/slideview",
-    "event-item": "components/event-item/event-item"
+    "event-item": "components/event-item/event-item",
+    "mp-slideview": "weui-miniprogram/slideview/slideview"
   }
 }
