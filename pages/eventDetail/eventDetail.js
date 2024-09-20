@@ -2,35 +2,70 @@ import CustomPage from '../../base/CustomPage'
 
 CustomPage({
     data: {
-        showTopTips: false,
-        isAgree: false,
-        defaultName: "默认事件",
-        defaultLocation: "默认地点",
-        date:"",
-        startTime:"",
-        endTime:"",
-        formData: {
-        },
-        rules: [{
-            name: 'name',
-            rules: {required: false},
-        }, {
-          name: 'date',
-          rules: {required: true, message: "请输入日期"}
-        }, {
-          name: 'startTime',
-          rules: {required: true, message: "请输入开始时间"}
-        }, {
-          name: 'location',
-          rules: {required: false}
-        },
-        ]
+      showTopTips: false,
+      defaultName: "默认事件",
+      defaultLocation: "默认地点",
+      date:"",
+      startTime:"",
+      endTime:"",
+      formData: {
+        name: '',
+        date: '',
+        startTime: '',
+        endTime: '',
+        location: ''
+      },
+      rules: [{
+          name: 'name',
+          rules: {required: false},
+      }, {
+        name: 'date',
+        rules: {required: true, message: "请输入日期"}
+      }, {
+        name: 'startTime',
+        rules: {required: true, message: "请输入开始时间"}
+      }, {
+        name: 'location',
+        rules: {required: false}
+      },
+      ]
     },
-
+    // onLoad: function(options) {
+    //   const {id} = options;
+    //   if (id) {
+    //     this.setData({
+    //       id: id,
+    //       isCreate: false
+    //     })
+    //     console.log("id now: " + id)
+    //     this.loadEventDetail(id);
+    //   }
+    // },
+    // 从 globalData 中加载事件详情
+    // loadEventDetail: function(id) {
+    //   const eventId = Number(id)
+    //   const app = getApp()
+    //   console.log(app.globalData.events)
+    //   const event = app.globalData.events.find(item => item.id === eventId);
+    //   if (event) {
+    //     this.setData({
+    //       formData: {
+    //         name: event.name,
+    //         date: event.date,
+    //         startTime: event.startTime,
+    //         endTime: event.endTime,
+    //         location: event.location
+    //       }
+    //     });
+    //   } else {
+    //     // 如果没有找到对应的事件，显示错误提示
+    //     this.setData({ error: '未找到对应的事件' });
+    //   }
+    // },
     bindDateChange: function (e) {
         this.setData({
-            date: e.detail.value,
-            [`formData.date`]: e.detail.value
+          date: e.detail.value,
+          [`formData.date`]: e.detail.value
         })
     },
     formInputChange(e) {
@@ -41,14 +76,14 @@ CustomPage({
     },
     bindStartTimeChange: function (e) {
       this.setData({
-          startTime: e.detail.value,
-          [`formData.startTime`]: e.detail.value
+        startTime: e.detail.value,
+        [`formData.startTime`]: e.detail.value
       })
     },
     bindEndTimeChange: function (e) {
       this.setData({
-          endTime: e.detail.value,
-          [`formData.endTime`]: e.detail.value
+        endTime: e.detail.value,
+        [`formData.endTime`]: e.detail.value
       })
     },
     submitForm() {

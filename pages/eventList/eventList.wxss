@@ -1,19 +1,14 @@
 /* Overall page layout */
 .page {
   padding: 20px;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
 }
 
-.add-button {
-  color: #000;
-  border: none;
-  font-size: 20px;
-  width: 40px;
-  height: 40px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  border-radius: 50%;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+.create-btn {
+  position: fixed;
+  bottom: 20px;
 }
 
 /* Event list container */

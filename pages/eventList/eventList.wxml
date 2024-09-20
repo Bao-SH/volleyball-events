@@ -7,11 +7,13 @@
       bindbuttontap="slideButtonTap"
       data-id="{{item.id}}"
       >
-      <event-item
+      <event-item bind:tap="editEvent" data-id="{{item.id}}"
         event="{{item}}"
       ></event-item>
     </mp-slideview>
   </block>
   <view wx:if="{{!events.length}}" class="no-event-msg">当前暂无事件</view>
-  <button bind:tap="createEvent">Create Event</button>
+  <view slot="button">
+    <button ext-class="create-btn" class="weui-btn" type="primary" bindtap="createEvent">创建新事件</button>
+  </view>
 </view>

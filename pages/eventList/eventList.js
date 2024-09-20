@@ -61,7 +61,6 @@ Page({
     });
   },
   editEvent: function(e) {
-    console.log(e)
     const id = e.currentTarget.dataset.id;
     wx.navigateTo({
       url: `/pages/eventDetail/eventDetail?id=${id}` // 跳转到事件详情页面，并传递事件索引
