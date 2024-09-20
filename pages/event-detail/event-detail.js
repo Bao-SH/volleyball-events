@@ -6,7 +6,7 @@ CustomPage({
       defaultName: "默认事件",
       defaultLocation: "默认地点",
       isCreate: true,
-      isEditable: false,
+      isEditable: true,
       eventId: null,
       date:"",
       startTime:"",
@@ -36,28 +36,19 @@ CustomPage({
     onLoad: function(options) {
       const {id} = options;
       if (id) {
-        this.setData({
-          eventId: Number(id),
-          isCreate: false
-        })
-        console.log("event id: " + this.data.eventId)
-        this.loadEventDetail(this.data.eventId);
+        this.loadEventDetail(id);
       }
     },
     // 从 globalData 中加载事件详情
-    loadEventDetail: function(eventId) {
+    loadEventDetail: function(id) {
       const app = getApp()
-      const event = app.globalData.events.find(item => item.id === eventId);
+      const event = app.globalData.events.find(item => item.id === Number(id));
       if (event) {
         this.setData({
-          formData: {
-            name: event.name,
-            date: event.date,
-            startTime: event.startTime,
-            endTime: event.endTime,
-            location: event.location,
-            id:null
-          },
+          eventId: Number(id),
+          isCreate: false,
+          isEditable: false,
+          formData: event,
           date: event.date,
           startTime: event.startTime,
           endTime: event.endTime,
@@ -67,6 +58,12 @@ CustomPage({
         wx.navigateBack({
         })
       }
+    },
+    // 切换编辑模式
+    toggleEdit: function (e) {
+      this.setData({
+        isEditable: e.detail.value 
+      });
     },
     bindDateChange: function (e) {
         this.setData({

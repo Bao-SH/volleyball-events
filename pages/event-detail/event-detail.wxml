@@ -2,41 +2,45 @@
     <!-- <mp-navigation-bar title="form"></mp-navigation-bar> -->
     <scroll-view type="list" scroll-y class="page-scroll-view page-height">
         <mp-toptips msg="{{error}}" type="error" show="{{error}}"></mp-toptips>
-
         <mp-form-page title="{{isCreate? '创建新事件' : formData.name}}">
+            <switch checked="{{isEditable}}" bindchange="toggleEdit"></switch>
             <mp-form id="form" rules="{{rules}}" models="{{formData}}">
                 <mp-cells title="事件信息">
                     <label>
-                        <mp-cell show-error prop="name" title="名称" ext-class="">
-                            <input bindinput="formInputChange" data-field="name" class="weui-input" placeholder="请输入事件名称" value="{{formData.name}}"/>
+                        <mp-cell show-error prop="name" title="名称" >
+                            <input bindinput="formInputChange" data-field="name" 
+                            class="weui-input {{!isEditable ? 'disabled-input' : ''}}" placeholder="请输入事件名称" value="{{formData.name}}"  
+                            disabled="{{!isEditable}}"/>
                         </mp-cell>
                     </label>
                     <label>
-                        <mp-cell show-error prop="date" title="日期" ext-class="">
-                          <picker data-field="date" mode="date" value="{{date}}" bindchange="bindDateChange">
-                                <view class="weui-input">{{date}}</view>
+                        <mp-cell show-error prop="date" title="日期" >
+                          <picker data-field="date" mode="date" value="{{date}}" bindchange="bindDateChange" disabled="{{!isEditable}}">
+                                <view class="weui-input {{!isEditable ? 'disabled-input' : ''}}">{{date}}</view>
                             </picker>
                         </mp-cell>
                     </label>
                     <label>
-                        <mp-cell show-error prop="startTime" title="开始时间" ext-class="">
+                        <mp-cell show-error prop="startTime" title="开始时间" >
                             <picker data-field="startTime" mode="time" bindchange="bindStartTimeChange" 
-                            value="{{startTime}}">
-                                <view class="weui-input">{{startTime}}</view>
+                            value="{{startTime}}" disabled="{{!isEditable}}">
+                                <view class="weui-input {{!isEditable ? 'disabled-input' : ''}}">{{startTime}}</view>
                             </picker>
                         </mp-cell>
                     </label>
                     <label>
-                        <mp-cell show-error prop="endTime" title="结束时间" ext-class="">
+                        <mp-cell show-error prop="endTime" title="结束时间">
                             <picker data-field="endTime" mode="time" bindchange="bindEndTimeChange" 
-                            value="{{endTime}}">
-                                <view class="weui-input">{{endTime}}</view>
+                            value="{{endTime}}" disabled="{{!isEditable}}">
+                                <view class="weui-input {{!isEditable ? 'disabled-input' : ''}}">{{endTime}}</view>
                             </picker>
                         </mp-cell>
                     </label>
                     <label>
-                        <mp-cell show-error prop="location" title="地点" ext-class="">
-                            <input bindinput="formInputChange" data-field="location" class="weui-input" placeholder="请输入事件地点" value="{{formData.location}}"/>
+                        <mp-cell show-error prop="location" title="地点">
+                            <input bindinput="formInputChange" data-field="location" 
+                            class="weui-input {{!isEditable ? 'disabled-input' : ''}}" placeholder="请输入事件地点" value="{{formData.location}}"
+                            disabled="{{!isEditable}}"/> 
                         </mp-cell>
                     </label>
                 </mp-cells>

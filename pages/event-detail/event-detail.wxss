@@ -18,10 +18,9 @@ label {
   border-radius: 5px;
 }
 
-/* 不可编辑状态下的样式 */
-.readonly {
-  background-color: #f5f5f5;
-  border: none; /* 去掉边框 */
-  color: #999; /* 文字变灰 */
-  cursor: not-allowed; /* 鼠标变成禁止状态（只在浏览器上有效） */
+/* 禁用状态的样式 */
+.disabled-input {
+  color: #999; /* 文字颜色变浅 */
+  opacity: 0.7; /* 整体透明度降低 */
+  pointer-events: none; /* 禁止点击 */
 }
