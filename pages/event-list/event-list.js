@@ -23,7 +23,7 @@ Page({
   },
   createEvent: function() {
     wx.navigateTo({
-      url: '/pages/eventDetail/eventDetail', // 指定要跳转的页面路径
+      url: '/pages/event-detail/event-detail', // 指定要跳转的页面路径
     });
   },
   loadEvents: function() {
@@ -63,7 +63,7 @@ Page({
   editEvent: function(e) {
     const id = e.currentTarget.dataset.id;
     wx.navigateTo({
-      url: `/pages/eventDetail/eventDetail?id=${id}` // 跳转到事件详情页面，并传递事件索引
+      url: `/pages/event-detail/event-detail?id=${id}` // 跳转到事件详情页面，并传递事件索引
     });
   },
   // 处理删除事件
