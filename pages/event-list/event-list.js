@@ -18,9 +18,6 @@ Page({
 
   },
   
-  slideButtonTap: function(e) {
-    console.log('slide button tap', e.detail)
-  },
   createEvent: function() {
     wx.navigateTo({
       url: '/pages/event-detail/event-detail', // 指定要跳转的页面路径
@@ -28,8 +25,6 @@ Page({
   },
   loadEvents: function() {
     const app = getApp();
-    console.log("initial events")
-    console.log(app.globalData.events)
     let events = app.globalData.events;
     //根据时间进行排序
     const sortedEvents = sortEventsByDate(events)
@@ -44,12 +39,10 @@ Page({
     this.setData({
       events: app.globalData.events
     });
-    console.log("processed events")
     console.log(app.globalData.events)
   },
 
   slideButtonTap: function(e) {
-    console.log("enter button tap")
     wx.showModal({
       title: '确认删除',
       content: '确定要删除此事件吗？',
