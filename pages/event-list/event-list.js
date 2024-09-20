@@ -7,6 +7,7 @@ Page({
   data: {
     showSlide: false,
     currentSlideId: null,
+    isLoading: true,
     buttons: [
       {
         type: 'warn',
@@ -37,7 +38,8 @@ Page({
     });
     app.globalData.events = processedEvents
     this.setData({
-      events: app.globalData.events
+      events: app.globalData.events,
+      isLoading: false
     });
     console.log(app.globalData.events)
   },
