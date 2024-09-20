@@ -3,7 +3,10 @@
     <scroll-view type="list" scroll-y class="page-scroll-view page-height">
         <mp-toptips msg="{{error}}" type="error" show="{{error}}"></mp-toptips>
         <mp-form-page title="{{isCreate? '创建新事件' : formData.name}}">
-            <switch checked="{{isEditable}}" bindchange="toggleEdit"></switch>
+          <view class="edit-toggle" wx:if="{{!isCreate}}">
+            <label>编辑事件</label>
+          <switch checked="{{isEditable}}" bindchange="toggleEdit"></switch>
+          </view>
             <mp-form id="form" rules="{{rules}}" models="{{formData}}">
                 <mp-cells title="事件信息">
                     <label>
@@ -47,7 +50,7 @@
             </mp-form>
 
             <view slot="button">
-                <button class="weui-btn" type="primary" bindtap="submitForm">确定</button>
+                <button class="weui-btn" type="primary" bindtap="submitForm">保存</button>
             </view>
         </mp-form-page>
     </scroll-view>

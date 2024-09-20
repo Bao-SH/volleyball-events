@@ -24,3 +24,9 @@ label {
   opacity: 0.7; /* 整体透明度降低 */
   pointer-events: none; /* 禁止点击 */
 }
+.edit-toggle {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px;
+}
