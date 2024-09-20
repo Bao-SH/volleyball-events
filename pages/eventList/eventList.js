@@ -12,32 +12,13 @@ Page({
         type: 'warn',
         text: '删除',
         extClass: 'delete-btn',
-      }
+      },
     ],
-    events: [] 
+    events: [],
+
   },
-  // 点击页面其他地方时触发
-  handlePageTap(e) {
-    if (this.data.currentSlideId !== null) {
-      this.setData({ currentSlideId: null });  // 隐藏 slideview
-    }
-  },
-  // 处理 slideview 显示
-  handleShowSlide(e) {
-    console.log("进入show ")
-    const { id } = e.currentTarget.dataset;  // 获取当前点击的 slideview 的 id
-    console.log(id)
-    this.setData({
-      currentSlideId: id  // 设置当前显示的 slideview
-    });
-  },
-  // 处理 slideview 隐藏
-  handleHideSlide() {
-    this.setData({
-      currentSlideId: null  // 重置 currentSlideId
-    });
-  },
-  slideButtonTap(e) {
+  
+  slideButtonTap: function(e) {
     console.log('slide button tap', e.detail)
   },
   createEvent: function() {
@@ -47,34 +28,38 @@ Page({
   },
   loadEvents: function() {
     const app = getApp();
+    console.log("initial events")
+    console.log(app.globalData.events)
     let events = app.globalData.events;
+    //根据时间进行排序
+    const sortedEvents = sortEventsByDate(events)
     //处理名字过长
-    const processedEvents = events.map(event => {
+    const processedEvents = sortedEvents.map(event => {
       return {
         ...event,
         displayName: event.name.length > 10 ? event.name.slice(0, 10) + '...' : event.name
       };
     });
-    const sortedEvents = sortEventsByDate(processedEvents)
+    app.globalData.events = processedEvents
     this.setData({
-      events: sortedEvents
+      events: app.globalData.events
     });
+    console.log("processed events")
+    console.log(app.globalData.events)
   },
 
-  // slideButtonTap: function(e) {
-  //   console.log("enter button tap")
-  //   const { id } = e.currentTarget.dataset;
-  //   wx.showModal({
-  //     title: '确认删除',
-  //     content: '您确定要删除此事件吗？',
-  //     success: (res) => {
-  //       if (res.confirm) {
-  //         // 触发父组件的删除事件
-  //         this.triggerEvent('deleteEvent', { id });
-  //       }
-  //     }
-  //   });
-  // },
+  slideButtonTap: function(e) {
+    console.log("enter button tap")
+    wx.showModal({
+      title: '确认删除',
+      content: '确定要删除此事件吗？',
+      success: (res) => {
+        if (res.confirm) {
+          this.handleDeleteEvent(e)
+        }
+      }
+    });
+  },
   editEvent: function(e) {
     console.log(e)
     const id = e.currentTarget.dataset.id;
@@ -84,30 +69,16 @@ Page({
   },
   // 处理删除事件
   handleDeleteEvent(e) {
-    const { id } = e.detail;
-    const newEvents = this.data.events.filter(event => event.id !== id);
-    this.setData({ events: newEvents });
-    wx.showToast({ title: '事件已删除', icon: 'success', duration: 2000 });
-  },
-  deleteEvent: function(e) {
     const eventId = e.currentTarget.dataset.id;
     const app = getApp();
-    wx.showModal({
-      title: '确认删除',
-      content: '确定要删除此事件吗？',
-      success: (res) => {
-        if (res.confirm) {
-          const updatedEvents = app.globalData.events.filter(event => event.id !== eventId);
+    const updatedEvents = app.globalData.events.filter(event => event.id !== eventId);
           app.globalData.events = updatedEvents;
           this.setData({
             events: app.globalData.events
           })
-          wx.showToast({
-            title: '删除成功',
-            icon: 'success',
-          })
-        }
-      }
+    wx.showToast({
+      title: '删除成功',
+      icon: 'success',
     })
   },
 

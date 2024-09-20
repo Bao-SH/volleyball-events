@@ -27,3 +27,9 @@
   margin-bottom: 10px;
   border-radius: 8px;
 }
+
+.no-event-msg {
+  display: flex;
+  justify-content: center;
+  padding: 20px;
+}

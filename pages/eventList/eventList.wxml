@@ -4,14 +4,14 @@
       ext-class="event-slideview"
       wx:if="{{item}}"
       buttons="{{buttons}}"
-      bindshow="handleShowSlide"
-      bindhide="handleHideSlide"
       bindbuttontap="slideButtonTap"
-      data-id="{{item.id}}">
+      data-id="{{item.id}}"
+      >
       <event-item
         event="{{item}}"
       ></event-item>
     </mp-slideview>
   </block>
+  <view wx:if="{{!events.length}}" class="no-event-msg">当前暂无事件</view>
   <button bind:tap="createEvent">Create Event</button>
 </view>
